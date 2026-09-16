@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+    <meta name="theme-color" content="#fff0f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Video para Maritza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fff0f6 0%, #ffe3ee 50%, #fff5fa 100%);
+            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: calc(env(safe-area-inset-top) + 15px) 15px calc(env(safe-area-inset-bottom) + 15px);
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            position: relative;
+        }
+
+        .burbuja {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255, 182, 213, 0.35);
+            pointer-events: none;
+            animation: flotar 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .burbuja:nth-child(1) { width: 90px; height: 90px; top: 8%; left: 6%; animation-delay: 0s; }
+        .burbuja:nth-child(2) { width: 60px; height: 60px; top: 72%; left: 10%; animation-delay: 1.5s; }
+        .burbuja:nth-child(3) { width: 110px; height: 110px; top: 12%; right: 4%; animation-delay: 0.8s; }
+        .burbuja:nth-child(4) { width: 70px; height: 70px; bottom: 10%; right: 8%; animation-delay: 2s; }
+        .burbuja:nth-child(5) { width: 50px; height: 50px; top: 45%; left: 2%; animation-delay: 1s; }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        .contenedor {
+            position: relative;
+            text-align: center;
+            background: #ffffff;
+            padding: 55px 30px 40px;
+            border-radius: 35px;
+            box-shadow: 0 15px 35px rgba(255, 150, 190, 0.35),
+                        0 0 0 6px #fff5fa,
+                        0 0 0 8px #ffd6e7;
+            width: 100%;
+            max-width: 420px;
+            z-index: 2;
+            animation: aparecer 0.9s ease-out;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .lazo {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 50px;
+            z-index: 3;
+        }
+
+        .lazo::before,
+        .lazo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: #ffb6c9;
+            border-radius: 50% 50% 50% 0;
+            box-shadow: inset -3px -3px 6px rgba(255, 255, 255, 0.6);
+        }
+
+        .lazo::before { left: 0; transform: rotate(-15deg) skew(-10deg); }
+        .lazo::after { right: 0; border-radius: 50% 50% 0 50%; transform: rotate(15deg) skew(10deg); }
+
+        .lazo-centro {
+            position: absolute;
+            top: 11px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #ff9dbb;
+            border-radius: 50%;
+            z-index: 4;
+            box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(1.6rem, 7vw, 2.1rem);
+            color: #e75480;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0 #ffe3ee;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        h1 .nombre {
+            display: inline-block;
+            color: #d63384;
+            animation: latido 2s ease-in-out infinite;
+        }
+
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .btn-tierno {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 280px;
+            background: linear-gradient(180deg, #ffb6ce 0%, #ff8fb3 100%);
+            color: #ffffff;
+            border: none;
+            padding: 18px 30px;
+            font-size: clamp(1.05rem, 4.5vw, 1.25rem);
+            font-weight: 700;
+            font-family: 'Quicksand', -apple-system, sans-serif;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            box-shadow: 0 7px 0 #e56b93,
+                        0 12px 22px rgba(255, 130, 170, 0.45);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            min-height: 56px;
+        }
+
+        .btn-tierno::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 15%;
+            width: 70%;
+            height: 35%;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            pointer-events: none;
+        }
+
+        @media (hover: hover) {
+            .btn-tierno:hover {
+                background: linear-gradient(180deg, #ffc4d8 0%, #ff9dbb 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 9px 0 #e56b93,
+                            0 15px 28px rgba(255, 130, 170, 0.5);
+            }
+        }
+
+        .btn-tierno:active {
+            transform: translateY(5px);
+            box-shadow: 0 2px 0 #e56b93,
+                        0 5px 12px rgba(255, 130, 170, 0.4);
+        }
+
+        .mensaje {
+            margin-top: 25px;
+            font-size: clamp(0.9rem, 3.8vw, 1rem);
+            color: #e75480;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            padding: 0 5px;
+        }
+
+        .mensaje.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .overlay-video {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: #000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay-video.activo {
+            display: flex;
+            opacity: 1;
+        }
+
+        .overlay-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+            outline: none;
+        }
+
+        .cerrar-video {
+            position: absolute;
+            top: calc(env(safe-area-inset-top) + 12px);
+            right: calc(env(safe-area-inset-right) + 12px);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: #d63384;
+            border: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            transition: background 0.2s ease, transform 0.15s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            line-height: 1;
+        }
+
+        .cerrar-video:hover { background: #ffffff; }
+        .cerrar-video:active { transform: scale(0.92); }
+
+        @media (max-width: 360px) {
+            .contenedor { padding: 50px 22px 35px; border-radius: 30px; }
+            .lazo { width: 70px; height: 44px; }
+            .lazo::before, .lazo::after { width: 35px; height: 35px; }
+            .lazo-centro { width: 18px; height: 18px; top: 10px; }
+            .cerrar-video { width: 42px; height: 42px; font-size: 1.2rem; }
+        }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .contenedor { padding: 40px 25px 30px; max-width: 380px; }
+            h1 { font-size: 1.5rem; margin-bottom: 20px; }
+            .btn-tierno { padding: 14px 25px; min-height: 48px; }
+            .mensaje { margin-top: 18px; }
+            .burbuja { display: none; }
+        }
+
+        @media (min-width: 768px) {
+            .contenedor { padding: 65px 45px 50px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+
+    <div class="contenedor">
+        <div class="lazo">
+            <div class="lazo-centro"></div>
+        </div>
+
+        <h1>Video para <span class="nombre">Maritza</span></h1>
+
+        <button class="btn-tierno" id="botonTierno" type="button">Presionar</button>
+
+        <p class="mensaje" id="mensaje">El video está listo para Maritza</p>
+    </div>
+
+    <!-- Reproductor de video a pantalla completa -->
+    <div class="overlay-video" id="overlayVideo">
+        <button class="cerrar-video" id="cerrarVideo" type="button" aria-label="Cerrar video">X</button>
+        <video id="miVideo" playsinline webkit-playsinline preload="auto" controls>
+            <!-- 👇 AQUÍ VA TU VIDEO 👇 -->
+            <source src="videos/video.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+        </video>
+    </div>
+
+    <script>
+        const boton = document.getElementById('botonTierno');
+        const mensaje = document.getElementById('mensaje');
+        const overlay = document.getElementById('overlayVideo');
+        const video = document.getElementById('miVideo');
+        const cerrar = document.getElementById('cerrarVideo');
+
+        boton.addEventListener('click', (e) => {
+            e.preventDefault();
+            mensaje.classList.add('visible');
+
+            if (navigator.vibrate) {
+                navigator.vibrate(15);
+            }
+
+            overlay.classList.add('activo');
+
+            const elem = overlay;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(() => {});
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            }
+
+            video.currentTime = 0;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch((error) => {
+                    console.log('No se pudo reproducir automáticamente:', error);
+                });
+            }
+        });
+
+        function cerrarVideo() {
+            video.pause();
+            video.currentTime = 0;
+            overlay.classList.remove('activo');
+
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
+
+        cerrar.addEventListener('click', cerrarVideo);
+        video.addEventListener('ended', cerrarVideo);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('activo')) {
+                cerrarVideo();
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement && overlay.classList.contains('activo')) {
+                cerrarVideo();
+            }
+        });
+        document.addEventListener('webkitfullscreenchange', () => {
+            if (!document.webkitFullscreenElement && overlay.classList.contains('activo')) {
+                cerrarVideo();
+            }
+        });
+    </script>
+
+</body>
+</html>
